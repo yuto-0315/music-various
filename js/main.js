@@ -7,6 +7,11 @@ import { initBpmGame } from './bpm.js';
 import { initTapGame } from './tap.js';
 import { initTimingGame } from './timing.js';
 import { initMelodyGame } from './melody.js';
+import { initTimbreGame } from './timbre.js';
+import { initIntervalGame } from './interval.js';
+import { initRhythmGame } from './rhythm.js';
+import { initSingGame } from './sing.js';
+import { initRangeGame } from './range.js';
 
 const GAME_INITIALIZERS = {
   pitch: initPitchGame,
@@ -14,10 +19,15 @@ const GAME_INITIALIZERS = {
   mosquito: initMosquitoGame,
   note: initNoteGame,
   chord: initChordGame,
+  timbre: initTimbreGame,
+  interval: initIntervalGame,
   bpm: initBpmGame,
   tap: initTapGame,
   timing: initTimingGame,
   melody: initMelodyGame,
+  rhythm: initRhythmGame,
+  sing: initSingGame,
+  range: initRangeGame,
 };
 
 const home = document.getElementById('home');

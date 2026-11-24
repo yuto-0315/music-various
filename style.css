@@ -930,6 +930,212 @@ h2[tabindex="-1"]:focus {
   color: var(--on-accent);
 }
 
+/* ---------- 選択肢が多いクイズ ---------- */
+.choice-grid {
+  display: grid;
+  /* 「完全4度」「オクターブ」が途中で折り返さない幅。スマホでは2列になる */
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  gap: 10px;
+}
+
+.choice-grid .choice {
+  min-height: 64px;
+  font-size: 1.0625rem;
+  white-space: nowrap;
+}
+
+.choice-grid-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.choice-grid-2 .choice {
+  min-height: 112px;
+}
+
+.choice {
+  position: relative;
+}
+
+/* 色だけに頼らず、正解の選択肢には文字でも印をつける */
+.choice.is-correct {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.choice.is-correct small {
+  color: var(--on-accent);
+}
+
+.choice.is-correct::after {
+  content: "正解";
+  position: absolute;
+  top: -10px;
+  right: -6px;
+  padding: 0 8px;
+  border-radius: 6px;
+  background: var(--ink);
+  color: var(--surface);
+  font-size: 0.75rem;
+}
+
+.wave-icon {
+  justify-self: center;
+  width: 64px;
+  height: 24px;
+  margin-bottom: 4px;
+  overflow: visible;
+}
+
+.wave-icon path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.group-note {
+  margin: -4px 0 12px;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+/* ---------- リズムの見比べ ---------- */
+.rhythm-compare {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.rhythm-row {
+  display: grid;
+  grid-template-columns: 4em 1fr;
+  gap: 8px;
+  align-items: center;
+}
+
+.rhythm-row-label {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.rhythm-track {
+  padding: 0 10px;
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+/* マス目の線を繰り返し背景で引く。--slots は JS から渡す */
+.rhythm-lane {
+  position: relative;
+  height: 40px;
+  border-right: 1px solid color-mix(in srgb, var(--muted) 45%, transparent);
+  background-image: linear-gradient(to right, color-mix(in srgb, var(--muted) 45%, transparent) 1px, transparent 1px);
+  background-size: calc(100% / var(--slots, 8)) 100%;
+}
+
+.rhythm-lane span {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--position) * 100%);
+  width: 10px;
+  height: 24px;
+  transform: translate(-50%, -50%);
+  border-radius: 3px;
+  background: var(--ink);
+}
+
+/* あなたのタップは丸、お手本は四角。形でも見分けられるようにする */
+.rhythm-lane.is-answer span {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.rhythm-compare figcaption {
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+/* ---------- チューナー ---------- */
+.tuner {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  background: var(--paper);
+}
+
+.tuner-phase {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.tuner-scale {
+  position: relative;
+  height: 44px;
+  border-radius: 8px;
+  background:
+    linear-gradient(to right, transparent 35%, color-mix(in srgb, var(--accent) 55%, transparent) 35%, color-mix(in srgb, var(--accent) 55%, transparent) 65%, transparent 65%),
+    var(--surface);
+}
+
+/* 中心線＝ぴったり */
+.tuner-scale::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-left: 2px dashed var(--muted);
+}
+
+.tuner-needle {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: calc(var(--needle, 0.5) * 100%);
+  width: 6px;
+  transform: translateX(-50%);
+  border-radius: 3px;
+  background: var(--ink);
+  transition: left 80ms linear, opacity 150ms;
+}
+
+.is-silent .tuner-needle {
+  opacity: 0.15;
+}
+
+.tuner-labels {
+  display: flex;
+  justify-content: space-between;
+  margin: -4px 0 0;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+.tuner-readout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  justify-content: center;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.tuner-readout output {
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
 /* ---------- 結果 ---------- */
 .result {
   display: grid;

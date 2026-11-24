@@ -1,11 +1,11 @@
-import { prepareAudio, playNote, midiToHz } from './audio.js';
+import { prepareAudio, playNote } from './audio.js';
+import { midiToHz, NOTE_NAMES_JA as NOTE_NAMES } from './music.js';
 import { mountResult, pickRank } from './result.js';
 import { pickRandom, wait } from './util.js';
 
 const QUESTION_COUNT = 10;
 // 真ん中のド（C4）から始まる1オクターブ
 const C4_MIDI = 60;
-const NOTE_NAMES = ['ド', 'ド♯', 'レ', 'レ♯', 'ミ', 'ファ', 'ファ♯', 'ソ', 'ソ♯', 'ラ', 'ラ♯', 'シ'];
 const BLACK_KEY_INDEXES = [1, 3, 6, 8, 10];
 const NOTE_SEC = 1.2;
 const KEY_FLASH_MS = 200;

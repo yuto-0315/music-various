@@ -20,11 +20,6 @@ const SCHEDULER_INTERVAL_MS = 25;
 // 開始直後の拍が予約に間に合わず欠けないよう、最初の拍だけ少し遅らせる
 const FIRST_BEAT_DELAY_SEC = 0.1;
 
-const A4_MIDI = 69;
-const A4_HZ = 440;
-
-export const midiToHz = (midi) => A4_HZ * 2 ** ((midi - A4_MIDI) / 12);
-
 /**
  * 自動再生制限があるため、ユーザー操作のハンドラ内で最初の await より前に呼ぶこと。
  */

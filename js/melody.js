@@ -1,4 +1,5 @@
-import { prepareAudio, playNote, midiToHz } from './audio.js';
+import { prepareAudio, playNote } from './audio.js';
+import { midiToHz } from './music.js';
 import { mountResult, pickRank } from './result.js';
 import { randomInt, wait } from './util.js';
 
