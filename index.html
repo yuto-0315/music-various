@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>おとあて</title>
+  <meta name="description" content="440Hz・耳年齢・絶対音感・BPM・リズム感・メロディ記憶。耳とリズム感をためす小さなゲーム集。">
+  <meta name="theme-color" content="#f6f1e7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1c1b19" media="(prefers-color-scheme: dark)">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <h1 class="logo"><a href="#"><span>おとあて</span></a></h1>
+      <p class="tagline">耳とリズム感をためす、小さなゲーム集。イヤホン推奨、音量は控えめに。</p>
+    </header>
+
+    <nav class="back-nav" id="back-nav" aria-label="戻る" hidden>
+      <a class="back-link" href="#">← ゲーム一覧</a>
+    </nav>
+
+    <main>
+      <!-- ========== ゲーム一覧 ========== -->
+      <div id="home" class="home">
+
+        <section class="game-group" aria-labelledby="group-ear">
+          <h2 class="group-title" id="group-ear">耳</h2>
+          <ul class="game-list">
+            <li>
+              <a class="game-card" href="#pitch">
+                <span class="game-no">01</span>
+                <span class="game-name">周波数あて</span>
+                <span class="game-desc">目盛りのないスライダーで 440 Hz（442 Hz）を探す。</span>
+              </a>
+            </li>
+            <li>
+              <a class="game-card" href="#higher">
+                <span class="game-no">02</span>
+                <span class="game-name">高いのはどっち？</span>
+                <span class="game-desc">2つの音の差がどんどん縮む。どこまで聞き分けられる？</span>
+              </a>
+            </li>
+            <li>
+              <a class="game-card" href="#mosquito">
+                <span class="game-no">03</span>
+                <span class="game-name">耳年齢チェック</span>
+                <span class="game-desc">高い音はどこから聞こえる？ 耳の年齢をざっくり判定。</span>
+              </a>
+            </li>
+            <li>
+              <a class="game-card" href="#note">
+                <span class="game-no">04</span>
+                <span class="game-name">ドレミあて</span>
+                <span class="game-desc">鳴った音を鍵盤で答える。絶対音感チャレンジ。</span>
+              </a>
+            </li>
+            <li>
+              <a class="game-card" href="#chord">
+                <span class="game-no">05</span>
+                <span class="game-name">明るい？暗い？</span>
+                <span class="game-desc">和音がメジャーかマイナーかを、直感で聞き分ける。</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="game-group" aria-labelledby="group-rhythm">
+          <h2 class="group-title" id="group-rhythm">リズム</h2>
+          <ul class="game-list">
+            <li>
+              <a class="game-card" href="#bpm">
+                <span class="game-no">06</span>
+                <span class="game-name">BPMあて</span>
+                <span class="game-desc">流れるクリックは1分間に何拍？</span>
+              </a>
+            </li>
+            <li>
+              <a class="game-card" href="#tap">
+                <span class="game-no">07</span>
+                <span class="game-name">テンポキープ</span>
+                <span class="game-desc">音なしで、言われたテンポを9回タップ。</span>
+              </a>
+            </li>
+            <li>
+              <a class="game-card" href="#timing">
+                <span class="game-no">08</span>
+                <span class="game-name">ジャストタイミング</span>
+                <span class="game-desc">クリックにぴったり合わせて16回。ずれをミリ秒で測る。</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        <section class="game-group" aria-labelledby="group-memory">
+          <h2 class="group-title" id="group-memory">記憶</h2>
+          <ul class="game-list">
+            <li>
+              <a class="game-card" href="#melody">
+                <span class="game-no">09</span>
+                <span class="game-name">メロディ記憶</span>
+                <span class="game-desc">1音ずつ長くなるメロディを、そのまままねする。</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- ========== 01 周波数あて ========== -->
+      <section class="panel" id="game-pitch" aria-labelledby="pitch-title" hidden>
+        <div class="panel-head">
+          <h2 id="pitch-title" tabindex="-1">周波数あて</h2>
+          <p class="lead">スライダーで音の高さを動かして、「ここだ」と思ったら決定。目盛りはありません。</p>
+        </div>
+
+        <fieldset class="segmented">
+          <legend>ねらう音</legend>
+          <label><input type="radio" name="pitch-target" value="440" checked><span>440 Hz</span></label>
+          <label><input type="radio" name="pitch-target" value="442"><span>442 Hz</span></label>
+        </fieldset>
+
+        <div class="wave" aria-hidden="true">
+          <svg viewBox="0 0 200 40" preserveAspectRatio="none">
+            <path d="M0 20 Q12.5 2 25 20 T50 20 T75 20 T100 20 T125 20 T150 20 T175 20 T200 20 T225 20 T250 20" />
+          </svg>
+        </div>
+
+        <div class="control-row">
+          <button class="btn" type="button" data-pitch-toggle aria-pressed="false">音を出す</button>
+        </div>
+
+        <div>
+          <div class="slider-row">
+            <button class="btn btn-icon" type="button" data-pitch-lower aria-label="少し低くする">−</button>
+            <div class="slider-wrap">
+              <input class="range" type="range" min="-300" max="300" step="0.1" value="0" aria-label="音の高さ" data-pitch-slider>
+              <p class="answer-marker" data-pitch-marker hidden>正解</p>
+            </div>
+            <button class="btn btn-icon" type="button" data-pitch-higher aria-label="少し高くする">+</button>
+          </div>
+          <p class="scale-labels" aria-hidden="true"><span>低い</span><span>高い</span></p>
+        </div>
+
+        <div class="control-row">
+          <button class="btn btn-primary" type="button" data-pitch-submit>これで決定</button>
+          <button class="btn" type="button" data-pitch-listen hidden>正解の音を聞く</button>
+        </div>
+
+        <p class="error" role="alert" data-error hidden></p>
+        <div data-result-slot></div>
+      </section>
+
+      <!-- ========== 02 高いのはどっち？ ========== -->
+      <section class="panel" id="game-higher" aria-labelledby="higher-title" hidden>
+        <div class="panel-head">
+          <h2 id="higher-title" tabindex="-1">高いのはどっち？</h2>
+          <p class="lead">2つの音が順に鳴ります。高かったほうを選んでください。正解するたびに差が小さくなり、3回まちがえたら終了。</p>
+        </div>
+
+        <div class="stats">
+          <p class="stat">
+            <span class="stat-label">いまの差</span>
+            <span class="stat-value"><output data-higher-diff>100.0</output> <small>cent</small></span>
+          </p>
+          <div class="stat">
+            <span class="stat-label">ライフ</span>
+            <ol class="dots dots-lives" aria-hidden="true" data-higher-lives></ol>
+            <span class="sr-only" data-higher-lives-text></span>
+          </div>
+        </div>
+
+        <div class="choice-row">
+          <button class="btn choice" type="button" data-higher-choice>1つ目<small>キー 1</small></button>
+          <button class="btn choice" type="button" data-higher-choice>2つ目<small>キー 2</small></button>
+        </div>
+
+        <div class="control-row">
+          <button class="btn btn-primary" type="button" data-higher-start>スタート</button>
+          <button class="btn" type="button" data-higher-replay>もう一度聞く</button>
+        </div>
+
+        <p class="feedback" aria-live="polite" data-feedback></p>
+        <p class="error" role="alert" data-error hidden></p>
+        <div data-result-slot></div>
+      </section>
+
+      <!-- ========== 03 耳年齢チェック ========== -->
+      <section class="panel" id="game-mosquito" aria-labelledby="mosquito-title" hidden>
+        <div class="panel-head">
+          <h2 id="mosquito-title" tabindex="-1">耳年齢チェック</h2>
+          <p class="lead">とても高い音から、少しずつ低くなっていきます。聞こえた瞬間にボタンを押してください。</p>
+        </div>
+
+        <p class="note">はじめは音量を小さめに。スマホのスピーカーや一部のイヤホンは、高い音をそもそも出せないことがあります。</p>
+
+        <progress class="progress" max="1" value="0" aria-label="音の下がりぐあい" data-mosquito-progress></progress>
+
+        <div class="control-row">
+          <button class="btn btn-primary" type="button" data-mosquito-start>スタート</button>
+        </div>
+
+        <button class="tap-pad" type="button" data-mosquito-heard disabled>聞こえた！</button>
+
+        <p class="feedback" aria-live="polite" data-feedback></p>
+        <p class="error" role="alert" data-error hidden></p>
+        <div data-result-slot></div>
+      </section>
+
+      <!-- ========== 04 ドレミあて ========== -->
+      <section class="panel" id="game-note" aria-labelledby="note-title" hidden>
+        <div class="panel-head">
+          <h2 id="note-title" tabindex="-1">ドレミあて</h2>
+          <p class="lead">鳴った音の名前を、鍵盤で答えてください。全10問。スタート前は鍵盤を自由に弾けます。</p>
+        </div>
+
+        <fieldset class="segmented">
+          <legend>むずかしさ</legend>
+          <label><input type="radio" name="note-mode" value="white" checked><span>白鍵だけ</span></label>
+          <label><input type="radio" name="note-mode" value="all"><span>12音ぜんぶ</span></label>
+        </fieldset>
+
+        <div class="stats">
+          <p class="stat">
+            <span class="stat-label">問題</span>
+            <span class="stat-value"><output data-note-count>0</output> <small>/ 10</small></span>
+          </p>
+          <p class="stat">
+            <span class="stat-label">正解</span>
+            <span class="stat-value"><output data-note-score>0</output></span>
+          </p>
+        </div>
+
+        <div class="keyboard" role="group" aria-label="鍵盤" data-note-keyboard></div>
+
+        <div class="control-row">
+          <button class="btn btn-primary" type="button" data-note-start>スタート</button>
+          <button class="btn" type="button" data-note-replay>もう一度聞く</button>
+        </div>
+
+        <p class="feedback" aria-live="polite" data-feedback></p>
+        <p class="error" role="alert" data-error hidden></p>
+        <div data-result-slot></div>
+      </section>
+
+      <!-- ========== 05 明るい？暗い？ ========== -->
+      <section class="panel" id="game-chord" aria-labelledby="chord-title" hidden>
+        <div class="panel-head">
+          <h2 id="chord-title" tabindex="-1">明るい？暗い？</h2>
+          <p class="lead">和音が鳴ります。明るい響き（メジャー）か、暗い響き（マイナー）か。全10問、直感でどうぞ。</p>
+        </div>
+
+        <div class="stats">
+          <p class="stat">
+            <span class="stat-label">問題</span>
+            <span class="stat-value"><output data-chord-count>0</output> <small>/ 10</small></span>
+          </p>
+          <p class="stat">
+            <span class="stat-label">正解</span>
+            <span class="stat-value"><output data-chord-score>0</output></span>
+          </p>
+        </div>
+
+        <div class="choice-row">
+          <button class="btn choice" type="button" data-chord-choice="major">明るい<small>メジャー ・ キー 1</small></button>
+          <button class="btn choice" type="button" data-chord-choice="minor">暗い<small>マイナー ・ キー 2</small></button>
+        </div>
+
+        <div class="control-row">
+          <button class="btn btn-primary" type="button" data-chord-start>スタート</button>
+          <button class="btn" type="button" data-chord-replay>もう一度聞く</button>
+        </div>
+
+        <p class="feedback" aria-live="polite" data-feedback></p>
+        <p class="error" role="alert" data-error hidden></p>
+        <div data-result-slot></div>
+      </section>
+
+      <!-- ========== 06 BPMあて ========== -->
+      <section class="panel" id="game-bpm" aria-labelledby="bpm-title" hidden>
+        <div class="panel-head">
+          <h2 id="bpm-title" tabindex="-1">BPMあて</h2>
+          <p class="lead">流れるクリックは1分間に何拍？ スライダーで数字を合わせて決定。</p>
+        </div>
+
+        <div class="lamps" aria-hidden="true">
+          <span class="lamp" data-bpm-lamp></span>
+          <span class="lamp" data-bpm-lamp></span>
+          <span class="lamp" data-bpm-lamp></span>
+          <span class="lamp" data-bpm-lamp></span>
+        </div>
+
+        <div class="control-row">
+          <button class="btn" type="button" data-bpm-toggle aria-pressed="false">クリックを再生</button>
+        </div>
+
+        <p class="readout">
+          <output data-bpm-output for="bpm-guess">120</output>
+          <span class="readout-unit">BPM</span>
+        </p>
+
+        <div>
+          <div class="slider-row">
+            <button class="btn btn-icon" type="button" data-bpm-slower aria-label="1つ遅くする">−</button>
+            <div class="slider-wrap">
+              <input class="range" id="bpm-guess" type="range" min="40" max="240" step="1" value="120" aria-label="あなたの答え（BPM）" data-bpm-slider>
+            </div>
+            <button class="btn btn-icon" type="button" data-bpm-faster aria-label="1つ速くする">+</button>
+          </div>
+          <p class="scale-labels" aria-hidden="true"><span>40</span><span>240</span></p>
+        </div>
+
+        <div class="control-row">
+          <button class="btn btn-primary" type="button" data-bpm-submit>これで決定</button>
+        </div>
+
+        <p class="error" role="alert" data-error hidden></p>
+        <div data-result-slot></div>
+      </section>
+
+      <!-- ========== 07 テンポキープ ========== -->
+      <section class="panel" id="game-tap" aria-labelledby="tap-title" hidden>
+        <div class="panel-head">
+          <h2 id="tap-title" tabindex="-1">テンポキープ</h2>
+          <p class="lead">このテンポで <strong>9回</strong> タップ。音はなし、体の中のメトロノームだけがたよりです。</p>
+        </div>
+
+        <p class="readout">
+          <span class="readout-label">目標</span>
+          <output data-tap-target>120</output>
+          <span class="readout-unit">BPM</span>
+        </p>
+
+        <div class="control-row">
+          <button class="btn" type="button" data-tap-demo>お手本を聞く（4拍）</button>
+          <button class="btn btn-quiet" type="button" data-tap-reset hidden>最初から</button>
+        </div>
+
+        <button class="tap-pad" type="button" data-tap-pad>
+          ここをタップ
+          <small>スペースキーでもOK</small>
+        </button>
+
+        <ol class="dots" aria-hidden="true" data-tap-dots></ol>
+        <p class="sr-only" aria-live="polite" data-tap-status></p>
+
+        <figure class="dev-chart" data-tap-chart hidden>
+          <div class="dev-chart-bars" data-tap-bars></div>
+          <figcaption>上＝走った（間隔が短い）／下＝もたった（間隔が長い）</figcaption>
+        </figure>
+
+        <p class="error" role="alert" data-error hidden></p>
+        <div data-result-slot></div>
+      </section>
+
+      <!-- ========== 08 ジャストタイミング ========== -->
+      <section class="panel" id="game-timing" aria-labelledby="timing-title" hidden>
+        <div class="panel-head">
+          <h2 id="timing-title" tabindex="-1">ジャストタイミング</h2>
+          <p class="lead">4つのカウントのあと、クリックに合わせて16回タップ。どれだけ「ジャスト」で叩けるか。</p>
+        </div>
+
+        <p class="note">Bluetooth イヤホンは音が遅れて届くため、スピーカーか有線イヤホンがおすすめです。</p>
+
+        <p class="readout">
+          <span class="readout-label">テンポ</span>
+          <output data-timing-tempo>100</output>
+          <span class="readout-unit">BPM</span>
+        </p>
+
+        <div class="control-row">
+          <button class="btn btn-primary" type="button" data-timing-start>スタート</button>
+        </div>
+
+        <button class="tap-pad" type="button" data-timing-pad disabled>
+          <span data-timing-pad-label>スタートを押してね</span>
+          <small>スペースキーでもOK</small>
+        </button>
+
+        <ol class="dots" aria-hidden="true" data-timing-dots></ol>
+
+        <figure class="dev-chart" data-timing-chart hidden>
+          <div class="dev-chart-bars" data-timing-bars></div>
+          <figcaption>上＝早い／下＝遅い（空欄はたたけなかった拍）</figcaption>
+        </figure>
+
+        <p class="feedback" aria-live="polite" data-feedback></p>
+        <p class="error" role="alert" data-error hidden></p>
+        <div data-result-slot></div>
+      </section>
+
+      <!-- ========== 09 メロディ記憶 ========== -->
+      <section class="panel" id="game-melody" aria-labelledby="melody-title" hidden>
+        <div class="panel-head">
+          <h2 id="melody-title" tabindex="-1">メロディ記憶</h2>
+          <p class="lead">鳴ったメロディを、同じ順番でまねしてください。成功するたびに1音ずつ長くなります。</p>
+        </div>
+
+        <div class="stats">
+          <p class="stat">
+            <span class="stat-label">メロディの長さ</span>
+            <span class="stat-value"><output data-melody-length>0</output> <small>音</small></span>
+          </p>
+        </div>
+
+        <div class="xylophone" role="group" aria-label="音のパッド">
+          <button class="bar" type="button" style="--bar-height: 100%" data-melody-pad>ド<small>1</small></button>
+          <button class="bar" type="button" style="--bar-height: 92%" data-melody-pad>レ<small>2</small></button>
+          <button class="bar" type="button" style="--bar-height: 84%" data-melody-pad>ミ<small>3</small></button>
+          <button class="bar" type="button" style="--bar-height: 76%" data-melody-pad>ソ<small>4</small></button>
+          <button class="bar" type="button" style="--bar-height: 68%" data-melody-pad>ラ<small>5</small></button>
+        </div>
+
+        <div class="control-row">
+          <button class="btn btn-primary" type="button" data-melody-start>スタート</button>
+        </div>
+
+        <p class="feedback" aria-live="polite" data-feedback></p>
+        <p class="error" role="alert" data-error hidden></p>
+        <div data-result-slot></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>音はすべてブラウザの中で作っています。結果がどこかに送られることはありません。</p>
+    </footer>
+  </div>
+
+  <template id="result-template">
+    <section class="result" aria-label="結果" data-result tabindex="-1" hidden>
+      <p class="result-rank" data-result-rank></p>
+      <p class="result-big" data-result-big></p>
+      <ul class="result-details" data-result-details></ul>
+      <div class="control-row">
+        <button class="btn btn-primary" type="button" data-result-save>結果を画像で保存</button>
+        <button class="btn" type="button" data-result-share hidden>共有</button>
+        <button class="btn" type="button" data-result-retry>もう一回</button>
+      </div>
+      <p class="result-status" aria-live="polite" data-result-status></p>
+    </section>
+  </template>
+</body>
+</html>

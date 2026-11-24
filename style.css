@@ -1,0 +1,1012 @@
+:root {
+  --paper: #f6f1e7;
+  --surface: #fffdf8;
+  --ink: #1d1b19;
+  --muted: #5e5850;
+  /* アクセントは主要ボタン・ランク・点灯中の要素だけに使う */
+  --accent: #ffcc33;
+  --on-accent: #1d1b19;
+  --shadow-color: #1d1b19;
+  --focus: #2563eb;
+  --danger: #b3261e;
+  --radius: 14px;
+  --thumb-size: 28px;
+  --font-sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #1c1b19;
+    --surface: #262420;
+    --ink: #f2ece1;
+    --muted: #b5ad9f;
+    --shadow-color: #000;
+    --focus: #7aa2ff;
+    --danger: #ff8a80;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.7;
+  -webkit-text-size-adjust: 100%;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* プログラムでフォーカスを移す見出しは、枠を出さずに読み上げ位置だけ移す */
+h2[tabindex="-1"]:focus {
+  outline: none;
+}
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 16px 48px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- ヘッダー ---------- */
+.site-header {
+  margin-bottom: 28px;
+}
+
+.logo {
+  margin: 0;
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+}
+
+.logo a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* マーカーで線を引いたような下線。文字にかかる面積を小さくして、ダークモードでも読めるようにする */
+.logo span {
+  padding: 0 4px;
+  background: linear-gradient(transparent 70%, var(--accent) 70%, var(--accent) 94%, transparent 94%);
+}
+
+.tagline {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+/* ---------- ゲーム一覧 ---------- */
+.home {
+  display: grid;
+  gap: 32px;
+}
+
+.group-title {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 0 0 12px;
+  font-size: 0.875rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.group-title::after {
+  content: "";
+  flex: 1;
+  border-top: 2px solid var(--ink);
+}
+
+.game-list {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 560px) {
+  .game-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* レコードの曲目リストのように、番号を左に大きく置く */
+.game-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 14px;
+  align-content: start;
+  height: 100%;
+  padding: 16px 18px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: 4px 4px 0 var(--shadow-color);
+  transition: transform 150ms, box-shadow 150ms;
+}
+
+.game-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--shadow-color);
+}
+
+.game-card:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+.game-no {
+  grid-row: span 2;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.game-name {
+  font-size: 1.125rem;
+  font-weight: 800;
+  line-height: 1.55;
+}
+
+.game-desc {
+  color: var(--muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* ---------- 戻るリンク ---------- */
+.back-nav {
+  margin-bottom: 12px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 5px;
+}
+
+/* ---------- パネル ---------- */
+.panel {
+  display: grid;
+  gap: 20px;
+  padding: 24px;
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 5px 5px 0 var(--shadow-color);
+}
+
+.panel-head h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
+.lead {
+  margin: 6px 0 0;
+  color: var(--muted);
+}
+
+.lead strong {
+  color: var(--ink);
+}
+
+.note {
+  margin: 0;
+  padding: 10px 14px;
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.control-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.feedback {
+  min-height: 1.7em;
+  margin: 0;
+  font-weight: 700;
+}
+
+.feedback:empty {
+  display: none;
+}
+
+.error {
+  margin: 0;
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* ---------- ボタン ---------- */
+.btn {
+  min-height: 44px;
+  padding: 0.5rem 1.1rem;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  box-shadow: 3px 3px 0 var(--shadow-color);
+  cursor: pointer;
+  transition: transform 150ms, box-shadow 150ms, background-color 150ms;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--shadow-color);
+}
+
+.btn:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--shadow-color);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.btn-quiet {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.btn-quiet:hover:not(:disabled),
+.btn-quiet:active:not(:disabled) {
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-icon {
+  flex: none;
+  width: 44px;
+  padding: 0;
+  font-size: 1.375rem;
+  line-height: 1;
+}
+
+/* 2択の大きなボタン */
+.choice-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.choice {
+  display: grid;
+  place-content: center;
+  gap: 2px;
+  min-height: 96px;
+  font-size: 1.25rem;
+}
+
+.choice small {
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.choice.is-sounding {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+.choice.is-sounding small {
+  color: var(--on-accent);
+}
+
+/* ---------- セグメント（ラジオ） ---------- */
+.segmented {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.segmented legend {
+  margin-bottom: 6px;
+  padding: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.segmented input {
+  position: absolute;
+  opacity: 0;
+}
+
+.segmented span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.4rem 1rem;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 150ms, color 150ms;
+}
+
+.segmented input:checked + span {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.segmented input:focus-visible + span {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.segmented input:disabled + span {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------- スライダー ---------- */
+.slider-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.slider-wrap {
+  position: relative;
+  flex: 1;
+}
+
+.range {
+  display: block;
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.range:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--ink);
+}
+
+.range::-webkit-slider-thumb {
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  margin-top: calc((6px - var(--thumb-size)) / 2);
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--accent);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.range::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--ink);
+}
+
+.range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  border: 3px solid var(--ink);
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.scale-labels {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 56px;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+/* つまみの中心は端から thumb-size/2 の範囲しか動かないので、その分を補正して位置を合わせる */
+.answer-marker {
+  position: absolute;
+  top: 100%;
+  left: calc(var(--thumb-size) / 2 + (100% - var(--thumb-size)) * var(--position, 0.5));
+  margin: 0;
+  padding: 0 8px;
+  transform: translateX(-50%);
+  border-radius: 6px;
+  background: var(--ink);
+  color: var(--surface);
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.answer-marker::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-bottom-color: var(--ink);
+}
+
+/* ---------- 波形（再生中の目印。周波数とは連動させない） ---------- */
+.wave {
+  height: 48px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--paper);
+}
+
+.wave svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.wave path {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 2.5;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.25;
+  transform: scaleY(0.15);
+  transform-origin: center;
+  transition: opacity 200ms, transform 200ms;
+}
+
+.is-playing .wave path {
+  opacity: 1;
+  transform: scaleY(1);
+  animation: wave-scroll 0.8s linear infinite;
+}
+
+@keyframes wave-scroll {
+  to {
+    translate: -50px 0;
+  }
+}
+
+/* ---------- 数値表示 ---------- */
+.readout {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  justify-content: center;
+  margin: 0;
+}
+
+.readout output {
+  font-family: var(--font-mono);
+  font-size: 3.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.readout-unit,
+.readout-label {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+}
+
+.stat {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.stat-value small {
+  color: var(--muted);
+  font-size: 0.9375rem;
+}
+
+/* ---------- 進み具合 ---------- */
+.progress {
+  width: 100%;
+  height: 14px;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--paper);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.progress::-webkit-progress-bar {
+  background: var(--paper);
+}
+
+.progress::-webkit-progress-value {
+  background: var(--ink);
+}
+
+.progress::-moz-progress-bar {
+  background: var(--ink);
+}
+
+/* ---------- BPM ランプ ---------- */
+.lamps {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: center;
+}
+
+.lamp {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  transition: background-color 60ms;
+}
+
+/* 1拍目（小節の頭）だけ大きくして、4拍の区切りを形でも示す */
+.lamp:first-child {
+  width: 26px;
+  height: 26px;
+}
+
+.lamp.is-on {
+  background: var(--accent);
+}
+
+/* ---------- タップパッド ---------- */
+.tap-pad {
+  display: grid;
+  place-content: center;
+  gap: 4px;
+  min-height: 180px;
+  border: 2px solid var(--ink);
+  border-radius: 20px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.375rem;
+  font-weight: 800;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 80ms, transform 80ms;
+}
+
+.tap-pad small {
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.tap-pad.is-hit {
+  background: var(--accent);
+  color: var(--on-accent);
+  transform: scale(0.985);
+}
+
+.tap-pad.is-hit small {
+  color: var(--on-accent);
+}
+
+.tap-pad:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---------- 点の列（回数・ライフ） ---------- */
+/* 16個並べてもスマホ幅（約320px）で1行に収まる大きさにする */
+.dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dots li {
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+}
+
+.dots li.is-filled {
+  background: var(--ink);
+}
+
+.dots-lives {
+  gap: 8px;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 2.1rem;
+}
+
+.dots-lives li {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---------- ずれのグラフ ---------- */
+.dev-chart {
+  margin: 0;
+}
+
+.dev-chart-bars {
+  position: relative;
+  display: flex;
+  gap: 6px;
+  height: 120px;
+  padding: 0 4px;
+  border-radius: 10px;
+  background: var(--paper);
+}
+
+/* 中心線＝ぴったり */
+.dev-chart-bars::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+  border-top: 2px dashed var(--muted);
+}
+
+.dev-bar {
+  position: relative;
+  flex: 1;
+}
+
+.dev-bar span {
+  position: absolute;
+  right: 12%;
+  left: 12%;
+  height: calc(var(--size) * 46%);
+  min-height: 2px;
+  background: var(--ink);
+}
+
+.dev-bar.is-up span {
+  bottom: 50%;
+  border-radius: 4px 4px 0 0;
+}
+
+.dev-bar.is-down span {
+  top: 50%;
+  border-radius: 0 0 4px 4px;
+}
+
+.dev-bar.is-missed::after {
+  content: "";
+  position: absolute;
+  inset: 30% 12%;
+  border: 2px dashed var(--muted);
+  border-radius: 4px;
+}
+
+.dev-chart figcaption {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+/* ---------- 鍵盤 ---------- */
+.keyboard {
+  position: relative;
+  display: flex;
+  height: 168px;
+  padding-left: 2px;
+}
+
+.key {
+  font: inherit;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  transition: background-color 80ms;
+}
+
+.key-white {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  justify-content: center;
+  margin-left: -2px;
+  padding-bottom: 10px;
+  border: 2px solid var(--ink);
+  border-radius: 0 0 10px 10px;
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.key-black {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: calc(100% / 7 * var(--boundary));
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 11%;
+  height: 58%;
+  padding: 0 0 6px;
+  transform: translateX(-50%);
+  border: 2px solid var(--ink);
+  border-radius: 0 0 8px 8px;
+  background: var(--ink);
+  color: var(--surface);
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+.key:disabled {
+  cursor: not-allowed;
+}
+
+.key-black:disabled {
+  background: var(--muted);
+  color: transparent;
+}
+
+.key.is-pressed,
+.key.is-correct {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* 色だけに頼らず、正解の鍵盤には文字でも印をつける */
+.key.is-correct::after {
+  content: "正解";
+  position: absolute;
+  /* 白鍵の上半分は黒鍵に隠れるので、音名のすぐ上に出す */
+  bottom: 40px;
+  left: 50%;
+  padding: 0 6px;
+  transform: translateX(-50%);
+  border-radius: 4px;
+  background: var(--ink);
+  color: var(--surface);
+  font-size: 0.6875rem;
+  white-space: nowrap;
+}
+
+.key-black.is-correct::after {
+  bottom: calc(100% + 4px);
+}
+
+/* ---------- 木琴パッド ---------- */
+.xylophone {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  height: 210px;
+}
+
+.bar {
+  position: relative;
+  display: grid;
+  flex: 1;
+  place-content: center;
+  gap: 2px;
+  height: var(--bar-height);
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1.125rem;
+  font-weight: 800;
+  box-shadow: 3px 3px 0 var(--shadow-color);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 80ms, transform 80ms, box-shadow 80ms;
+}
+
+/* 木琴の鍵盤を留めるネジ */
+.bar::before,
+.bar::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+.bar::before {
+  top: 10px;
+}
+
+.bar::after {
+  bottom: 10px;
+}
+
+.bar small {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.bar.is-lit {
+  background: var(--accent);
+  color: var(--on-accent);
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--shadow-color);
+}
+
+.bar.is-lit small {
+  color: var(--on-accent);
+}
+
+/* ---------- 結果 ---------- */
+.result {
+  display: grid;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 2px dashed var(--ink);
+}
+
+.result:focus {
+  outline: none;
+}
+
+.result-rank {
+  justify-self: start;
+  margin: 0;
+  padding: 0.2rem 0.9rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 800;
+}
+
+.result-big {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 2.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.15;
+}
+
+.result-details {
+  margin: 0;
+  padding: 0;
+  color: var(--muted);
+  list-style: none;
+}
+
+.result-status {
+  min-height: 1.7em;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.result-status.is-error {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* ---------- フッター ---------- */
+.site-footer {
+  margin-top: 40px;
+  color: var(--muted);
+  font-size: 0.8125rem;
+}
+
+@media (max-width: 480px) {
+  .panel {
+    padding: 20px 16px;
+  }
+
+  .readout output {
+    font-size: 3rem;
+  }
+
+  .result-big {
+    font-size: 2.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
